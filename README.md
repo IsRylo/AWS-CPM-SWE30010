@@ -1,5 +1,5 @@
 # SWE30010 Team 3 Repository
-Tutorial: Tues 4:30PM - 6:30PM
+Tutorial: Tues 4:30PM - 6:30PM\
 Dr. Kaberi Naznin
 
 ## Team members
