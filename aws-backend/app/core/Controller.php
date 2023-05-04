@@ -1,14 +1,18 @@
 <?php
 
 class Controller{
-	public function view($view, $data = [])
-	{
+	protected IModel $model;
+
+	public function view($view, $data = []) {
 		require_once '../app/views/' . $view . '.php';
 	}
 
-	public function model($model)
-	{
+	public function setModel($model) {
 		require_once '../app/models/' . $model . '.php';
-		return new $model;
+		$this->model =  new $model;
+	}
+
+	public function model() {
+		return $this->model;
 	}
 }
