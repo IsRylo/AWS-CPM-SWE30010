@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import './css/App.css';
+import LoginForm from './components/LoginForm';
+import Sidebar from './components/Sidebar';
+import RegisterForm from './components/RegisterForm';
 
 function App() {
+  const [title, setTitle] = useState('Default Title');
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  function handleTitleChange(newTitle) {
+    setTitle(newTitle);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="container">
+        {/* Side Bar */}
+        <Sidebar
+          handleTitleChange={handleTitleChange}
+        />
+
+        {/* Main Content */}
+        <div className="main-content">
+          <h1 className="title">{title}</h1>
+            <Routes>
+              <Route path="/title1" />
+              <Route path="/register" element={<RegisterForm />}/>
+              <Route path="/login" element={<LoginForm />} />
+            </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
