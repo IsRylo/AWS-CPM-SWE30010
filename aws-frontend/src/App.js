@@ -28,7 +28,7 @@ function App() {
         <div className="main-content">
           <h1 className="title">{title}</h1>
             <Routes>
-              <Route path="/title1" />
+              <Route path="/" />
               <Route path="/register" element={<RegisterForm />}/>
               <Route path="/login" element={<LoginForm />} />
             </Routes>

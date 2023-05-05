@@ -1,6 +1,7 @@
 // LoginForm.jsx
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -8,7 +9,17 @@ function LoginForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(`Username: ${username}, Password: ${password}`);
+    axios.post('http://yourserver.com/login.php', { //TO
+      username: username,
+      password: password
+    }).then(response => {
+      localStorage.setItem('token', response.data.token);
+      console.log('Logged in successfully!');
+      // Redirect to another page or update the UI to show that the user is logged in
+      useNavigate('./');
+    }).catch(error => {
+      console.log('Error logging in:', error);
+    });
   }
 
   return (
