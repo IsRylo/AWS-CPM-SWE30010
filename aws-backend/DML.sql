@@ -18,7 +18,7 @@ INSERT INTO transactions VALUES
 ('bb9c7f7b3d92b502f0e312c557ba285f49542dd8f783090753fc052f22028535', '2018-02-20', 1205.30, 'Weekly Salary', 'c8c7cb5b9e8f7a1b3d1d02602ada62327132391dbe0e8ee07913cd550eea1f3b'),
 ('03645ecb208448a16bc31d26347c2f8065ed1f53f15689e3b551cd871b6c5fcd', '2018-03-15', 1205.30, 'Weekly Salary', 'c8c7cb5b9e8f7a1b3d1d02602ada62327132391dbe0e8ee07913cd550eea1f3b'),
 ('b78f1bfebf58b83d4f474ecb296defcfb923650c94c13d7665e2d73b15fcdb33', '2019-11-10', 121120.30, 'Apple Shares Sold', '18c5c9be898c65c5e5c51ac3e94feacff0b991f8463a3a18eb524e9f7e6131a8'),
-('c85ac8c6f65a19a7baaeb10d1683b9dd3c116aac081e65fabcda4ba2001be8b5', '2006-03-26', -1520.30, 'Real Estate Tax', '18c5c9be898c65c5e5c51ac3e94feacff0b991f8463a3a18eb524e9f7e6131a8'),
+('c85ac8c6f65a19a7baaeb10d1683b9dd3c116aac081e65fabcda4ba2001be8b5', '2006-03-26', -1520.30, 'Real Estate Tax', '18c5c9be898c65c5e5c51ac3e94feacff0b991f8463a3a18eb524e9f7e6131a8');
 
 -- Insert a Financial Report/Advice from a manager to a customer
 INSERT INTO reports VALUES
