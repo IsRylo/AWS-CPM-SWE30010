@@ -9,7 +9,7 @@ function Sidebar({ handleTitleChange}) {
         <Link to="/" onClick={() => handleTitleChange('Default Title')}>
             Default
         </Link>
-        <Link to="/Register" onClick={() => handleTitleChange('Register')}>
+        <Link to="/register" onClick={() => handleTitleChange('Register')}>
             Register Form
         </Link>
         <Link to="/login" onClick={() => handleTitleChange('Login Form')}>

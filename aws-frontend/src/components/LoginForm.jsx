@@ -7,23 +7,23 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    axios.post('http://yourserver.com/login.php', { //TO
-      username: username,
-      password: password
-    }).then(response => {
-      localStorage.setItem('token', response.data.token);
-      console.log('Logged in successfully!');
-      // Redirect to another page or update the UI to show that the user is logged in
-      useNavigate('./');
-    }).catch(error => {
-      console.log('Error logging in:', error);
-    });
-  }
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   axios.post('http://yourserver.com/login.php', { //TO
+  //     username: username,
+  //     password: password
+  //   }).then(response => {
+  //     localStorage.setItem('token', response.data.token);
+  //     console.log('Logged in successfully!');
+  //     // Redirect to another page or update the UI to show that the user is logged in
+  //     useNavigate('./');
+  //   }).catch(error => {
+  //     console.log('Error logging in:', error);
+  //   });
+  // }
 
   return (
-    <form onSubmit={handleSubmit}>  
+    <form>  
         {/* Username input */}
         <label htmlFor="username">Username: </label>
         <input
@@ -41,7 +41,7 @@ function LoginForm() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
         />
-      <button type="submit" onSubmit={handleSubmit}>Login</button>
+      <button type="submit" >Login</button>
     </form>
   );
 }
