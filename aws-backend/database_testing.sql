@@ -1,0 +1,17 @@
+-- 10:44
+
+-- Selection for all customer data by ID
+-- Selection for all customer data by wrong ID
+-- Selection for all manager data by ID
+-- Selection for all manager data by wrong ID
+-- Selection for all transaction data by customer ID
+-- Selection for all transaction data by wrong customer ID
+-- Selection for all report data by customer ID
+-- Selection for all report data by wrong customer ID
+-- Insertion for manager, customer, transaction, and report data using correct ID.
+-- Insertion for manager, customer, transaction, and report data using wrong customer ID.
+-- Testing the trigger during customer insertion with null manager_assigned 
+-- Update for manager, customer, transaction, and report data using correct ID.
+-- Update for manager, customer, transaction, and report data using wrong customer ID.
+-- Delete for manager, customer, transaction, and report data using correct ID.
+-- Delete for manager, customer, transaction, and report data using wrong customer ID.
