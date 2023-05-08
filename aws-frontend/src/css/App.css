@@ -25,4 +25,53 @@
   margin-bottom: 10px;
   text-decoration: none;
   color: #333;
+  
+}
+
+.register-component button {
+  position: absolute;
+  width: 467px;
+  height: 50px;
+  left: 131px;
+  top: 818px;
+
+    /* Color */
+
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+
+  /* Colors / Action / Primary */
+  background: #4339F2;
+  border-radius: 10px;
+
+
+  /* Text */
+
+  position: absolute;
+  height: 20px;
+  left: 45.92%;
+  right: 45.94%;
+  top: calc(50% - 20px/2 + 1px);
+
+  /* H4 */
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+  text-align: center;
+
+  /* Colors / White / 100% */
+  color: #FFFFFF;
+
+
+
+}
+
+.register-component p {
+  color: green;
 }

@@ -15,7 +15,8 @@ function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="register-component">
+      <form onSubmit={handleSubmit}>
         {/* Username Input */}
         <label htmlFor="username">Username: </label>
         <input
@@ -43,6 +44,9 @@ function RegisterForm() {
         />
       <button type="submit">Register</button>
     </form>
+
+    <p>My name is OPid</p>
+    </div>
   );
 }
 

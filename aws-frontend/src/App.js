@@ -19,16 +19,11 @@ function App() {
   return (
     <Router>
       <div className="container">
-        {/* Side Bar */}
-        <Sidebar
-          handleTitleChange={handleTitleChange}
-        />
-
         {/* Main Content */}
         <div className="main-content">
           <h1 className="title">{title}</h1>
             <Routes>
-              <Route path="/" />
+              <Route path="/" element={<Sidebar  handleTitleChange={handleTitleChange} />}/>
               <Route path="/register" element={<RegisterForm />}/>
               <Route path="/login" element={<LoginForm />} />
             </Routes>
