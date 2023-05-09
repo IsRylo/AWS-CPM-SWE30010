@@ -12,10 +12,7 @@ function RegisterForm() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   
-  const handleSubmit = (event) => {
-    console.log("username" + username);
-    console.log("email" + email);
-    console.log("password" + password);
+  const handleSubmit = (event) => { 
     event.preventDefault();
     axios
       .post("http://localhost/Swinburne/CPM/AWS-CPM-SWE30010/aws-backend/api/register", {
@@ -26,6 +23,7 @@ function RegisterForm() {
       .then((response) => {
         console.log(response);
         setError(response.data);
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error);
