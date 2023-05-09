@@ -8,6 +8,8 @@ class CustomerModel extends Database implements IModel
     $queryPhone->execute();
     return $queryPhone->fetchAll();
   }
+
+  // Get customer detail based on username
   public function getByID($id)
   {
     $queryPhone = $this->db->prepare("SELECT * from customers WHERE customer_name =  " . $id);
@@ -15,9 +17,18 @@ class CustomerModel extends Database implements IModel
     return $queryPhone->fetchAll();
   }
 
-  public function update($var = null)
+  public function update($data)
   {
-    # code...
+    $query = $this->db->prepare("UPDATE customers
+    SET (customer_ID:id, customer_name:name, customer_pass:password, customer_email:email, manager_assigned:manager_ID)");
+    // $query->bindParam(":id_phone", uniqid('', true));
+    $query->bindParam(":id", $data['customer_id']);
+    $query->bindParam(":name", $data['username']);
+    $query->bindParam(":password", $data['password']);
+    $query->bindParam(":email", $data['email']);
+    $query->bindParam(":manager_ID", $data['manager_assgined']);
+    $query->execute();
+    return $query->rowCount();
   }
 
   public function delete($var = null)
@@ -27,11 +38,15 @@ class CustomerModel extends Database implements IModel
 
   public function insert($data)
   {
-    $query = $this->db->prepare("INSERT into customers(id_phone, name_phone, brand_phone)
-    values (:id_phone, :name_phone, :brand_phone)");
-    $query->bindParam(":id_phone", uniqid('', true));
-    $query->bindParam(":name_phone", $data['name_phone']);
-    $query->bindParam(":brand_phone", $data['brand_phone']);
+    $query = $this->db->prepare("INSERT into customers(customer_ID, customer_Name, customer_pass, customer_email)
+    values (:id, :name, :password, :email)");
+    $data['customer_id'] = hash("sha256", uniqid('', true));
+    // var_dump($data);
+    // return;
+    $query->bindParam(":id", $data['customer_id'] );
+    $query->bindParam(":name", $data['customer_name']);
+    $query->bindParam(":password", $data['customer_pass']);
+    $query->bindParam(":email", $data['customer_email']);
     $query->execute();
     return $query->rowCount();
   }

@@ -1,4 +1,6 @@
 <?php
+require_once './vendor/autoload.php';
+use Firebase\JWT\JWT;
 
 class App
 {
@@ -53,13 +55,14 @@ class App
 	private function login()
 	{
 		// login.php
-		// use Firebase\JWT\JWT;
 		if (!isset($_POST['username']) && !isset($_POST['password'])) throw new Exception("Details are not sufficient!"); 
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
 		// TODO: Authenticate the user using the provided username and password
 		// ...
+		if ($this->authenticate($username, $password)) return json_encode(array('error' => "Failed to authenticate."));
+
 
 		// If the user is authenticated, generate a JWT token
 		$jwt_secret = 'your_jwt_secret_key';
@@ -69,27 +72,51 @@ class App
 		);
 		
 		// Run this after the JWT enconder has been installed 
-		// $jwt_token = JWT::encode($token_payload, $jwt_secret);
+		$jwt_token = JWT::encode($token_payload, $jwt_secret, "HS256");
 
 		// Return the token to the client
-		// $response = array('token' => $jwt_token);
+		$response = array('token' => $jwt_token);
 
 		// TODO: Change this to the front-end link 
-		// header('Content-Type: application/json');
-		// echo json_encode($response);
+		header('Content-Type: application/json');
+		echo json_encode($response);
 	}
 
-	private function register()
+	public function register()
 	{
-		if (!isset($_POST['username']) && !isset($_POST['password']) && !isset($_POST['email'])) throw new Exception("Details are not sufficient!"); 
-		$data['username'] = $_POST['username'];
-		$data['email'] = $_POST['email'];
-		$data['password'] = hash("sha256", $_POST['password']);
+		
+		$json = json_decode(file_get_contents('php://input'), true);
+		// var_dump($json);
+		// return;
+
+		if (!isset($json['username']) && !isset($json['password']) && !isset($json['email'])) throw new Exception("Details are not sufficient!"); 
+		// $safePost = filter_input_array($json['username']['email']['password'], [
+		// 	"username" => FILTER_SANITIZE_STRING,
+		// 	"email" => FILTER_SANITIZE_EMAIL
+		// ]);
+		$data['customer_name'] = $json['username'];
+		$data['customer_email'] = $json['email'];
+		$data['customer_pass'] = hash("sha256", $json['password']);
+		require_once '../app/controllers/Customer.php';
+		$customer = new Customer;
+		try {
+			$customer->register($data);
+			echo json_encode("success");
+		} catch (Exception $e) {
+			echo json_encode(array('error' => $e));
+		}
 	}
 
-	private function authenticate()
+	public function authenticate($username, $password)
 	{
 		// Get manager by ID 
+		$customer = new Customer;
+		if ($customer->authenticate($username, $password)) return true;
+		// else {
+		// 	$manager = new Manager;
+		// 	if ($manager->authenticate($username, $password)) return false;
+		// }
+		return false;
 		// Get customers by ID
 		// If none return false
 	}

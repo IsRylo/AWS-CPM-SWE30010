@@ -1,5 +1,5 @@
 <?php
-
+require_once 'IModel.php';
 class Controller{
 	protected IModel $model;
 
@@ -12,7 +12,7 @@ class Controller{
 		$this->model =  new $model;
 	}
 
-	protected function getModel() {
+	public function getModel() {
 		return $this->model;
 	}
 }

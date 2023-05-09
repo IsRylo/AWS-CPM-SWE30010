@@ -8,22 +8,36 @@ function RegisterForm() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    axios.post('http://yourserver.com/register.php', {
-      username: username,
-      email: email,
-      password: password
-    }).then(response => {
-      console.log('Registered successfully!');
-      navigate('/login');
-    }).catch(error => {
-      console.log('Error registering:', error);
-    });
-  }
   
+  const handleSubmit = (event) => {
+    console.log("username" + username);
+    console.log("email" + email);
+    console.log("password" + password);
+    event.preventDefault();
+    axios
+      .post("http://localhost/Swinburne/CPM/AWS-CPM-SWE30010/aws-backend/api/register", {
+        username: username,
+        email: email,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response);
+        setError(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleEmailChange = (event) => {
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    setEmail(event.target.value);
+    setIsValidEmail(emailRegex.test(event.target.value));
+  };
+
 
   return (
     <div className="register-component">
@@ -39,11 +53,11 @@ function RegisterForm() {
 
         {/* Email Input */}
         <label htmlFor='email'>Email:</label>
-        <input 
-            type="email" 
-            value={email}
-            id='email' 
-            onChange={(event) => setEmail(event.target.value)} 
+        <input
+          type="email"
+          value={email}
+          onChange={handleEmailChange}
+          style={{ borderColor: isValidEmail ? "" : "red" }}
         />
 
         <label htmlFor='password'>Password:</label>
@@ -55,7 +69,9 @@ function RegisterForm() {
         />
       <button type="submit">Register</button>
     </form>
-
+    <div id="error">
+      <p>{error == null ? "All good" : error}</p>
+    </div>
     </div>
   );
 }
