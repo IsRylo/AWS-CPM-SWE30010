@@ -54,7 +54,7 @@ class App
 	{
 		// login.php
 		// use Firebase\JWT\JWT;
-		echo "Hello";
+		if (!isset($_POST['username']) && !isset($_POST['password'])) throw new Exception("Details are not sufficient!"); 
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 
@@ -81,7 +81,10 @@ class App
 
 	private function register()
 	{
-		echo "Registering new user";
+		if (!isset($_POST['username']) && !isset($_POST['password']) && !isset($_POST['email'])) throw new Exception("Details are not sufficient!"); 
+		$data['username'] = $_POST['username'];
+		$data['email'] = $_POST['email'];
+		$data['password'] = hash("sha256", $_POST['password']);
 	}
 
 	private function authenticate()
