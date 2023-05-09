@@ -53,19 +53,22 @@ class App
 	}
 	
 	private function login()
-	{
-		// login.php
-		if (!isset($_POST['username']) && !isset($_POST['password'])) throw new Exception("Details are not sufficient!"); 
-		$username = $_POST['username'];
-		$password = $_POST['password'];
+	{	
+		if(!isset($_SESSION['user'])) {
+			$post = json_decode(file_get_contents('php://input'), true);
+			// login.php
+			if (!isset($post['username']) && !isset($post['password'])) throw new Exception("Details are not sufficient!"); 
+			$username = filter_var($post['username'], FILTER_SANITIZE_STRING);
+			$password = hash("sha256", $post['password']);
 
-		// TODO: Authenticate the user using the provided username and password
-		// ...
-		if ($this->authenticate($username, $password)) return json_encode(array('error' => "Failed to authenticate."));
-
+			if (!$this->authenticate($username, $password)) {
+				echo "Failed to authenticate";
+				return;
+			}
+		}
 
 		// If the user is authenticated, generate a JWT token
-		$jwt_secret = 'your_jwt_secret_key';
+		$jwt_secret = $_SESSION["user"]['customer_ID'];
 		$token_payload = array(
 		'username' => $username,
 		'exp' => time() + (60 * 60) // Token expires in 1 hour
@@ -85,18 +88,18 @@ class App
 	public function register()
 	{
 		
-		$json = json_decode(file_get_contents('php://input'), true);
-		// var_dump($json);
+		$post = json_decode(file_get_contents('php://input'), true);
+		// var_dump($post);
 		// return;
 
-		if (!isset($json['username']) && !isset($json['password']) && !isset($json['email'])) throw new Exception("Details are not sufficient!"); 
-		// $safePost = filter_input_array($json['username']['email']['password'], [
-		// 	"username" => FILTER_SANITIZE_STRING,
-		// 	"email" => FILTER_SANITIZE_EMAIL
-		// ]);
-		$data['customer_name'] = $json['username'];
-		$data['customer_email'] = $json['email'];
-		$data['customer_pass'] = hash("sha256", $json['password']);
+		if (!isset($post['username']) && !isset($post['password']) && !isset($post['email'])) throw new Exception("Details are not sufficient!"); 
+		$safePost['username'] = filter_var($post['username'], FILTER_SANITIZE_STRING);
+		$safePost['email'] = filter_var($post['email'], FILTER_SANITIZE_EMAIL);
+		$safePost['password'] = $post['password'];
+
+		$data['customer_name'] = $safePost['username'];
+		$data['customer_email'] = $safePost['email'];
+		$data['customer_pass'] = hash("sha256", $safePost['password']);
 		require_once '../app/controllers/Customer.php';
 		$customer = new Customer;
 		try {
@@ -110,11 +113,12 @@ class App
 	public function authenticate($username, $password)
 	{
 		// Get manager by ID 
+		require_once '../app/controllers/Customer.php';
 		$customer = new Customer;
 		if ($customer->authenticate($username, $password)) return true;
 		// else {
 		// 	$manager = new Manager;
-		// 	if ($manager->authenticate($username, $password)) return false;
+		// 	return $manager->authenticate($username, $password));
 		// }
 		return false;
 		// Get customers by ID

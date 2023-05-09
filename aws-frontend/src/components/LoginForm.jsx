@@ -7,25 +7,28 @@ import axios from 'axios';
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
-    axios.post('http://yourserver.com/login.php', { //TO
+    axios.post('http://localhost/Swinburne/CPM/AWS-CPM-SWE30010/aws-backend/api/login', { //TO
       username: username,
       password: password
     }).then(response => {
-      localStorage.setItem('token', response.data.token);
-      console.log('Logged in successfully!');
+      // localStorage.setItem('token', response.data.token);
+      // console.log('Logged in successfully!');
+      // setError(response.data);
+      console.log(response);
       // Redirect to another page or update the UI to show that the user is logged in
-      navigate('/');
+      // navigate('/');
     }).catch(error => {
       console.log('Error logging in:', error);
     });
   }
 
   return (
-    <div className="login-component">
+    <div className="login-component" onSubmit={handleSubmit}>
       <form>  
           {/* Username input */}
           <label htmlFor="username">Username: </label>
@@ -44,8 +47,12 @@ function LoginForm() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
           />
-        <button type="submit" >Login</button>
+        <button type="submit">Login</button>
       </form>
+
+      <div id="error">
+      <p>{error == null ? "All good" : error}</p>
+    </div>
     </div>
   );
 }

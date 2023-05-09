@@ -9,10 +9,11 @@ class Customer extends Controller
   {
     $this->setModel("CustomerModel");
     $data = $this->model->getByID($username);
-    if (!isset($data)) return false;
-    if ($data['customer_pass'] == $password) {
-      $_SESSION["id"] = $data['customer_ID'];
+    if (isset($data) && $data['customer_pass'] == $password) {
+      $_SESSION["user"] = $data;
+      return true;
     }
+    return false;
   }
 
   public function register($data)

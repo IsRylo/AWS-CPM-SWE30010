@@ -4,23 +4,24 @@ class CustomerModel extends Database implements IModel
 {
   public function getAll()
   {
-    $queryPhone = $this->db->prepare("SELECT * from customers");
-    $queryPhone->execute();
-    return $queryPhone->fetchAll();
+    $query = $this->db->prepare("SELECT * from customers");
+    $query->execute();
+    return $query->fetchAll();
   }
 
   // Get customer detail based on username
   public function getByID($id)
   {
-    $queryPhone = $this->db->prepare("SELECT * from customers WHERE customer_name =  " . $id);
-    $queryPhone->execute();
-    return $queryPhone->fetchAll();
+    $query = $this->db->prepare("SELECT * from customers WHERE customer_name=:name");
+    $query->bindParam(":name", $id);
+    $query->execute();
+    return $query->fetchAll()[0];
   }
 
   public function update($data)
   {
     $query = $this->db->prepare("UPDATE customers
-    SET (customer_ID:id, customer_name:name, customer_pass:password, customer_email:email, manager_assigned:manager_ID)");
+    SET (customer_ID=:id, customer_name=:name, customer_pass=:password, customer_email=:email, manager_assigned=:manager_ID)");
     // $query->bindParam(":id_phone", uniqid('', true));
     $query->bindParam(":id", $data['customer_id']);
     $query->bindParam(":name", $data['username']);

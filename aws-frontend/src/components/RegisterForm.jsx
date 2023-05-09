@@ -23,7 +23,7 @@ function RegisterForm() {
       .then((response) => {
         console.log(response);
         setError(response.data);
-        navigate("/login");
+        // navigate("/login");
       })
       .catch((error) => {
         console.log(error);
