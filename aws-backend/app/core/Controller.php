@@ -12,7 +12,7 @@ class Controller{
 		$this->model =  new $model;
 	}
 
-	public function model() {
+	protected function getModel() {
 		return $this->model;
 	}
 }
