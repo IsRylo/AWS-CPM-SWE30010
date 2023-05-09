@@ -83,4 +83,11 @@ class App
 	{
 		echo "Registering new user";
 	}
+
+	private function authenticate()
+	{
+		// Get manager by ID 
+		// Get customers by ID
+		// If none return false
+	}
 }
