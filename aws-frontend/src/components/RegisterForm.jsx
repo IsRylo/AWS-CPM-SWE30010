@@ -1,18 +1,29 @@
 // RegisterForm.jsx
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(`Username: ${username}`);
-    console.log(`Email: ${email}`);
-    console.log(`Password: ${password}`);
+    axios.post('http://yourserver.com/register.php', {
+      username: username,
+      email: email,
+      password: password
+    }).then(response => {
+      console.log('Registered successfully!');
+      navigate('/login');
+    }).catch(error => {
+      console.log('Error registering:', error);
+    });
   }
+  
 
   return (
     <div className="register-component">
@@ -45,7 +56,6 @@ function RegisterForm() {
       <button type="submit">Register</button>
     </form>
 
-    <p>My name is OPid</p>
     </div>
   );
 }
