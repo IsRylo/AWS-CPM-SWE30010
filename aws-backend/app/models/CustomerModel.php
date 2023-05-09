@@ -15,6 +15,7 @@ class CustomerModel extends Database implements IModel
     $query = $this->db->prepare("SELECT * from customers WHERE customer_name=:name");
     $query->bindParam(":name", $id);
     $query->execute();
+    if ($query->rowCount() < 1) return null;
     return $query->fetchAll()[0];
   }
 
