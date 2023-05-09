@@ -80,7 +80,6 @@ class App
 		// Return the token to the client
 		$response = array('token' => $jwt_token);
 
-		// TODO: Change this to the front-end link 
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
