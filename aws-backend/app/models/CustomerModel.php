@@ -33,9 +33,13 @@ class CustomerModel extends Database implements IModel
     return $query->rowCount();
   }
 
-  public function delete($var = null)
+  public function delete($id = null)
   {
-    # code...
+    if (!isset($id)) return false;
+    $query = $this->db->prepare("DELETE FROM customers WHERE customer_ID =:id");
+    $query->bindParam(":id", $id);
+    $query->execute();
+    return $query->rowCount() > 0;
   }
 
   public function insert($data)

@@ -22,8 +22,12 @@ class Customer extends Controller
     $this->model->insert($data);
   }
 
-  public function getTransactionRecord()
+  public function delete($id)
   {
-    $this->model;
+    if (isset($_SESSION['user'])){
+      $this->setModel("CustomerModel");
+      $result = $this->model->delete($id);
+      echo json_encode(["result" => $result]);
+    }
   }
 }
