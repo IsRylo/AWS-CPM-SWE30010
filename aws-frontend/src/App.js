@@ -6,9 +6,10 @@ import './css/App.css';
 import LoginForm from './components/LoginForm';
 import Sidebar from './components/Sidebar';
 import RegisterForm from './components/RegisterForm';
+import LandingPage from './components/LandingPage';
 
 function App() {
-  const [title, setTitle] = useState('Default Title');
+  const [title, setTitle] = useState('Landing Page');
 
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -23,9 +24,12 @@ function App() {
         <div className="main-content">
           <h1 className="title">{title}</h1>
             <Routes>
-              <Route path="/" element={<Sidebar  handleTitleChange={handleTitleChange} />}/>
+              <Route path="/" element={<LandingPage handleTitleChange={handleTitleChange}/>}/>
               <Route path="/register" element={<RegisterForm />}/>
               <Route path="/login" element={<LoginForm />} />
+              <Route path='/profile' element={<Sidebar  handleTitleChange={handleTitleChange}/>}/>
+              <Route path='/report' element={<Sidebar  handleTitleChange={handleTitleChange}/>}/>
+              <Route path='/settings' element={<Sidebar  handleTitleChange={handleTitleChange}/>}/>
             </Routes>
         </div>
       </div>
